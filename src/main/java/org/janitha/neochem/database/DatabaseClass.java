@@ -21,7 +21,7 @@ public class DatabaseClass {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/neochem";
 
 	static final String USER = "root";
-	static final String PASS = "root";
+	static final String PASS = "jibtennakoon";
 	
 	public DatabaseClass(){
 		try {
@@ -132,5 +132,38 @@ public class DatabaseClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getCode(char C){
+		String sql = "";
+		String result = "";
+		//ResultSet rs;
+		switch(C){
+		
+		case 'R':
+			 sql = "SELECT `NewCode` FROM `items` WHERE `NewCode`LIKE 'R%' ORDER BY `ID` DESC LIMIT 1";
+			break;
+			
+		case 'L':
+			 sql ="SELECT `NewCode` FROM `items` WHERE `NewCode`LIKE 'L%' ORDER BY `ID` DESC LIMIT 1";
+			break;
+		}
+		
+		try (Connection conn = (Connection) DriverManager.getConnection(DB_URL,
+				USER, PASS);
+				Statement stmt = (Statement) conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				) {
+			 //rs = stmt.executeQuery(sql);
+			rs.next();
+			 result = rs.getString("NewCode");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+		
 	}
 }

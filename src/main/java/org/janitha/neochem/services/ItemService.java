@@ -32,5 +32,9 @@ public class ItemService {
 	public void removeItem(long id) {
 		db.deleteItem(id);
 	}
+	
+	public String getCode(char C){
+		return db.getCode(C);
+	}
 
 }
