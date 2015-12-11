@@ -21,7 +21,7 @@ public class DatabaseClass {
 	static final String DB_URL = "jdbc:mysql://localhost:3306/neochem";
 
 	static final String USER = "root";
-	static final String PASS = "jibtennakoon";
+	static final String PASS = "neochem";
 	
 	public DatabaseClass(){
 		try {
@@ -43,11 +43,21 @@ public class DatabaseClass {
 
 			while (rs.next()) {
 				// Retrieve by column name
-				System.out.println(rs.getInt("ID"));
-				System.out.println(rs.getString("FormerCode"));
-				System.out.println(rs.getString("NewCode"));
-				results.add(new Item(rs.getInt("ID"), rs
-						.getString("FormerCode"), rs.getString("NewCode")));
+//				System.out.println(rs.getInt("ID"));
+//				System.out.println(rs.getString("FormerCode"));
+//				System.out.println(rs.getString("NewCode"));
+				results.add(new Item(rs.getInt("ID"), 
+						             rs.getString("ManeCode"), 
+						             rs.getString("ManeName"),
+						             rs.getString("Type"),
+						             rs.getString("FlavourFormat"),
+						             rs.getString("FlavourType"),
+						             rs.getInt("Year"),
+						             rs.getString("Country"),
+						             rs.getString("NeoChemName"),
+						             rs.getString("NeoChemCode")
+						             
+						));
 
 			}
 
@@ -70,8 +80,16 @@ public class DatabaseClass {
 
 			while (rs.next()) {
 				result.setId(rs.getInt("ID"));
-				result.setFormerCode(rs.getString("FormerCode"));
-				result.setNewCode(rs.getString("NewCode"));
+				result.setManeCode(rs.getString("ManeCode"));
+				result.setManeName(rs.getString("ManeName"));
+				result.setType(rs.getString("Type"));
+				result.setFlavorFormat(rs.getString("FlavourFormat"));
+				result.setFlavorType(rs.getString("FlavourType"));
+				result.setYear(rs.getInt("Year"));
+				result.setCountry(rs.getString("Country"));
+				result.setNeoChemName(rs.getString("NeoChemName"));
+				result.setNeoChemCode(rs.getString("NeoChemCode"));
+				
 			}
 
 		} catch (SQLException e) {
@@ -86,10 +104,18 @@ public class DatabaseClass {
 	}
 
 	public String addItem(Item item) {
-		String formerCode = item.getFormerCode();
-		String newCode = item.getNewCode();
-		String sql = "INSERT INTO items (FormerCode, NewCode) VALUES ('"
-				+ formerCode + "', '" + newCode + "')";
+		String mCode = item.getManeCode();
+		String mName = item.getManeName();
+		String type = item.getType();
+		String fFormat = item.getFlavorFormat();
+		String fType = item.getFlavorType();
+		int year = item.getYear();
+		String country = item.getCountry();
+		String neoName = item.getNeoChemName();
+		String neoCode = item.getNeoChemCode();
+		
+		String sql = "INSERT INTO items (ManeCode, ManeName, Type, FlavourFormat, FlavourType,Year,Country, NeoChemName, NeoChemCode) VALUES ('"
+				+ mCode + "', '" + mName + "', '" + type +"', '" + fFormat +"', '" + fType +"', '" + year +"', '" + country +"', '" + neoName +"', '" + neoCode +"')";
 		try (Connection conn = (Connection) DriverManager.getConnection(DB_URL,
 				USER, PASS);
 				Statement stmt = (Statement) conn.createStatement();
@@ -104,7 +130,7 @@ public class DatabaseClass {
 
 	}
 	
-	public void updateItem(Item item) {
+	/*public void updateItem(Item item) {
 		String formerCode = item.getFormerCode();
 		String newCode = item.getNewCode();
 		long ID = item.getId();
@@ -118,7 +144,7 @@ public class DatabaseClass {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	} */
 
 	public void deleteItem(long id) {
 ;
@@ -141,11 +167,11 @@ public class DatabaseClass {
 		switch(C){
 		
 		case 'R':
-			 sql = "SELECT `NewCode` FROM `items` WHERE `NewCode`LIKE 'R%' ORDER BY `ID` DESC LIMIT 1";
+			 sql = "SELECT `NeoChemCode` FROM `items` WHERE `NeoChemCode`LIKE 'R%' ORDER BY `ID` DESC LIMIT 1";
 			break;
 			
 		case 'L':
-			 sql ="SELECT `NewCode` FROM `items` WHERE `NewCode`LIKE 'L%' ORDER BY `ID` DESC LIMIT 1";
+			 sql ="SELECT `NeoChemCode` FROM `items` WHERE `NeoChemCode`LIKE 'V%' ORDER BY `ID` DESC LIMIT 1";
 			break;
 		}
 		
@@ -156,7 +182,7 @@ public class DatabaseClass {
 				) {
 			 //rs = stmt.executeQuery(sql);
 			rs.next();
-			 result = rs.getString("NewCode");
+			 result = rs.getString("NeoChemCode");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

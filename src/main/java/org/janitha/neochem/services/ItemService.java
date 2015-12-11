@@ -23,11 +23,11 @@ public class ItemService {
 		return db.addItem(item);
 	}
 
-	public Item updateItem( Item item) {
-		db.updateItem(item);
-		return item;
-
-	}
+//	public Item updateItem( Item item) {
+//		db.updateItem(item);
+//		return item;
+//
+//	}
 
 	public void removeItem(long id) {
 		db.deleteItem(id);

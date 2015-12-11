@@ -44,13 +44,13 @@ public class Itemresource {
 
 	}
 
-	@PUT
-	@Path("/{itemID}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Item updateItem(@PathParam("itemID") long id, Item item) {
-		return itemService.updateItem(item);
-	}
+//	@PUT
+//	@Path("/{itemID}")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Item updateItem(@PathParam("itemID") long id, Item item) {
+//		return itemService.updateItem(item);
+//	}
 	
 	@DELETE
 	@Path("/{itemID}")
